@@ -19,6 +19,36 @@ class Vertex
 			vertex=nVertex;
 			distance=nDistance;
 		}
+	friend bool operator < (const Vertex & v1, const Vertex & v2)
+	{
+		if(v1.distance<v2.distance)
+		{
+			return true;
+		}
+		else if (v1.distance> v2.distance)
+		{
+			return false;
+		}
+		else
+		{
+			return v1.vertex<v2.vertex;
+		}
+	}
+	friend bool operator >(const Vertex & v1, const Vertex & v2)
+	{
+		if(v1.distance>v2.distance)
+		{
+			return true;
+		}
+		else if (v1.distance< v2.distance)
+		{
+			return false;
+		}
+		else
+		{
+			return v1.vertex>v2.vertex;
+		}
+	}
 };
 
 class BinaryHeap
@@ -53,11 +83,11 @@ class BinaryHeap
  			int l=left(i);
  			int r=right(i);
  			int smallest=i;
- 			if(l<heap.size() && heap[l].distance<heap[smallest].distance)
+ 			if(l<heap.size() && heap[l]<heap[smallest])
  			{
  				smallest=l;
  			}
- 			if(r<heap.size() && heap[r].distance<heap[smallest].distance)
+ 			if(r<heap.size() && heap[r]<heap[smallest])
  			{
  				smallest=r;
  			}
@@ -72,7 +102,7 @@ class BinaryHeap
  			if(nDistance < heap[i].distance)
  			{
  				heap[i].distance=nDistance;
- 				while(i>0  && heap[parent(i)].distance > heap[i].distance) /*maintain the heap property*/
+ 				while(i>0  &&  heap[parent(i)] > heap[i]) /*maintain the heap property*/
  				{
  					swap(i, parent(i));
  					i=parent(i);
